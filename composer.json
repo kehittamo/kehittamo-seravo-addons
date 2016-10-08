@@ -1,0 +1,14 @@
+{
+  "name": "kehittamo/gulpfile",
+  "version": "master",
+  "type": "gulpfile",
+  "source": {
+    "url": "https://bitbucket.org/kehittamo/gulpfile",
+    "type": "git",
+    "reference": "master"
+  },
+  "require": {
+    "php": ">=5.4.0",
+    "composer/installers": "~1.0"
+  }
+}
