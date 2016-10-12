@@ -374,7 +374,7 @@ gulp.task( '_styleguide', 'Generate a Nucleus Styleguide from scss', () => {
 			return gulp.src( SRC )
             .pipe( plumber( { errorHandler: notify.onError( "Error: <%= error.message %>" ) } ) )
 			.pipe( shell( '( cd ' + SRC + ' ; npm run styleguide )', {
-				errorMessage: 'Nucleus Styleguide failed.',
+				errorMessage: 'Nucleus Styleguide failed with: <%= error.message %>',
 				quiet: true
 			}));
 

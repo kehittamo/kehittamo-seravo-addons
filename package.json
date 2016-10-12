@@ -2,6 +2,7 @@
   "name": "kehittamo-base",
   "version": "1.0.0",
   "author": "Kehittamo",
+  "description": "npm deps of projects",
   "homepage": "https://kehittamo.fi",
   "contributors": [
     {
