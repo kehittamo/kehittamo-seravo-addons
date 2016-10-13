@@ -24,6 +24,7 @@ let autoprefixer = require( 'gulp-autoprefixer' );
 let browserSync  = require( 'browser-sync' ).create();
 let changed      = require( 'gulp-changed' );
 let collect      = require( 'gulp-rev-collector' );
+let colors       = require( 'colors' );
 let cssNano      = require( 'gulp-clean-css' );
 let fs           = require( 'fs' );
 let del          = require( 'del' );
@@ -52,7 +53,7 @@ let wpRev        = require( 'gulp-wp-rev' );
 gulp.task( 'default', false, ['help'] );
 
 gulp.task( 'build', 'Clean, run pipelines and revision', () => {
-    runSequence( '_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_pot', '_rev' );
+    runSequence( 'log-tasks', '_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_pot', '_rev' );
 });
 
 gulp.task( 'serve', 'Spin up browser sync and start watching for changes', [ 'build', '_browser-sync' ], () => {
@@ -102,10 +103,31 @@ gulp.task( 'serve', 'Spin up browser sync and start watching for changes', [ 'bu
 });
 
 ////////////////////////////////////////////////////////////////////////
+//                             LOG TASKS                              //
+////////////////////////////////////////////////////////////////////////
+
+gulp.task( '_log-tasks', 'Display the projects gulp is running', () => {
+
+	console.log( 'Gulp is running tasks for project(s):'.green );
+
+	let tasks = APPS.map( app => {
+
+		console.log( app.name );
+
+	})
+	.filter( function( stream ) {
+		return !!stream;
+	});
+
+	return merge( tasks );
+
+})
+
+////////////////////////////////////////////////////////////////////////
 //                      CSS PROCESSING PIPELINE                       //
 ////////////////////////////////////////////////////////////////////////
 
-gulp.task('_styles', 'Build styles and compile out CSS', () => {
+gulp.task( '_styles', 'Build styles and compile out CSS', () => {
 
     let tasks = APPS.map( app => {
 
@@ -148,7 +170,7 @@ gulp.task('_styles', 'Build styles and compile out CSS', () => {
 //                   JAVASCRIPT PROCESSING PIPELINE                   //
 ////////////////////////////////////////////////////////////////////////
 
-gulp.task('_js', 'Build JavaScript and move to distribute', () => {
+gulp.task( '_js', 'Build JavaScript and move to distribute', () => {
 
     let tasks = APPS.map( app => {
 
@@ -184,7 +206,7 @@ gulp.task('_js', 'Build JavaScript and move to distribute', () => {
 //                     IMAGES PROCESSING PIPELINE                     //
 ////////////////////////////////////////////////////////////////////////
 
-gulp.task('_img', 'Compress and distribute images', () => {
+gulp.task( '_img', 'Compress and distribute images', () => {
 
     let tasks = APPS.map( app => {
 
@@ -218,7 +240,7 @@ gulp.task('_img', 'Compress and distribute images', () => {
 //                     FONTS PROCESSING PIPELINE                      //
 ////////////////////////////////////////////////////////////////////////
 
-gulp.task('_fonts', 'Copy fonts to build', () => {
+gulp.task( '_fonts', 'Copy fonts to build', () => {
 
     let tasks = APPS.map( app => {
 
@@ -293,7 +315,6 @@ gulp.task( '_pot', 'Generate translation file', () => {
         if ( app.pot ) {
 
             let SRC = app.pot.src.map( source => {
-                console.log(app.baseDir + source);
                 return app.baseDir + source;
             })
             let DEST = app.baseDir + app.pot.dest;
@@ -353,7 +374,7 @@ gulp.task( '_browser-sync', 'Start up browser sync server', () => {
 
 });
 
-gulp.task('_browser-sync-reload', 'Reload browsers connected to browser sync', () => {
+gulp.task( '_browser-sync-reload', 'Reload browsers connected to browser sync', () => {
 
     browserSync.reload();
 
@@ -388,7 +409,7 @@ gulp.task( '_styleguide', 'Generate a Nucleus Styleguide from scss', () => {
 //                               CLEAN                                //
 ////////////////////////////////////////////////////////////////////////
 
-gulp.task('_clean', 'Clean by removing any compiled files', () => {
+gulp.task( '_clean', 'Clean by removing any compiled files', () => {
 
     let tasks = APPS.map( app => {
 

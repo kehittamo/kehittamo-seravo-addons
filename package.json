@@ -62,6 +62,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.7.1",
+    "colors": "^1.1.2",
     "del": "^2.2.0",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^3.1.0",
