@@ -53,7 +53,7 @@ let wpRev        = require( 'gulp-wp-rev' );
 gulp.task( 'default', false, ['help'] );
 
 gulp.task( 'build', 'Clean, run pipelines and revision', () => {
-    runSequence( 'log-tasks', '_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_pot', '_rev' );
+    runSequence( '_log-tasks', '_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_pot', '_rev' );
 });
 
 gulp.task( 'serve', 'Spin up browser sync and start watching for changes', [ 'build', '_browser-sync' ], () => {
