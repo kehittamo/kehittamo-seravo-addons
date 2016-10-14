@@ -24,7 +24,6 @@ let autoprefixer = require( 'gulp-autoprefixer' );
 let browserSync  = require( 'browser-sync' ).create();
 let changed      = require( 'gulp-changed' );
 let collect      = require( 'gulp-rev-collector' );
-let colors       = require( 'colors' );
 let cssNano      = require( 'gulp-clean-css' );
 let fs           = require( 'fs' );
 let del          = require( 'del' );
@@ -53,7 +52,7 @@ let wpRev        = require( 'gulp-wp-rev' );
 gulp.task( 'default', false, ['help'] );
 
 gulp.task( 'build', 'Clean, run pipelines and revision', () => {
-    runSequence( '_log-tasks', '_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_pot', '_rev' );
+    runSequence( '_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_pot', '_rev' );
 });
 
 gulp.task( 'serve', 'Spin up browser sync and start watching for changes', [ 'build', '_browser-sync' ], () => {
@@ -101,27 +100,6 @@ gulp.task( 'serve', 'Spin up browser sync and start watching for changes', [ 'bu
     gulp.watch( phpSrc, [ '_browser-sync-reload' ] );
 
 });
-
-////////////////////////////////////////////////////////////////////////
-//                             LOG TASKS                              //
-////////////////////////////////////////////////////////////////////////
-
-gulp.task( '_log-tasks', 'Display the projects gulp is running', () => {
-
-	console.log( 'Gulp is running tasks for project(s):'.green );
-
-	let tasks = APPS.map( app => {
-
-		console.log( app.name );
-
-	})
-	.filter( function( stream ) {
-		return !!stream;
-	});
-
-	return merge( tasks );
-
-})
 
 ////////////////////////////////////////////////////////////////////////
 //                      CSS PROCESSING PIPELINE                       //
