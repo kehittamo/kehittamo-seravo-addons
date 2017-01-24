@@ -212,7 +212,7 @@ gulp.task('_rev', 'Revision styles and scripts', () => {
       return gulp.src(SRC)
       .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') }))
       .pipe(gulpif(
-        fs.exists(app.baseDir + app.buildLocations.css + app.revisions.cssFile),
+        fs.existsSync(app.baseDir + app.buildLocations.css + app.revisions.cssFile),
         wpRev({
           css: app.baseDir + app.buildLocations.css + app.revisions.cssFile,
           cssHandle: app.revisions.cssHandle,
