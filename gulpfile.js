@@ -52,7 +52,7 @@ const wpRev        = require('gulp-wp-rev');
 gulp.task('default', false, ['help']);
 
 gulp.task('build', 'Clean, run pipelines and revision', () => {
-  runSequence('_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_pot', '_rev');
+  runSequence('_clean', '_styles', '_styleguide', '_js', '_img', '_fonts', '_videos', '_pot', '_rev');
 });
 
 gulp.task('serve', 'Spin up browser sync and start watching for changes', ['build', '_browser-sync'], () => {
@@ -61,6 +61,7 @@ gulp.task('serve', 'Spin up browser sync and start watching for changes', ['buil
   const imgSrc = [];
   const fontsSrc = [];
   const phpSrc = [];
+  const videoSrc = [];
 
   APPS.forEach((app) => {
     if (app.styles) {
@@ -88,12 +89,18 @@ gulp.task('serve', 'Spin up browser sync and start watching for changes', ['buil
         phpSrc.push(app.baseDir + src);
       });
     }
+    if (app.videos) {
+      app.videos.src.forEach((src) => {
+        videoSrc.push(app.baseDir + src);
+      });
+    }
   });
 
   gulp.watch(stylesSrc, ['_styles', '_styleguide']);
   gulp.watch(jsSrc, () => runSequence('_js', '_browser-sync-reload'));
   gulp.watch(imgSrc, () => runSequence('_img', '_browser-sync-reload'));
   gulp.watch(fontsSrc, () => runSequence('_fonts', '_browser-sync-reload'));
+  gulp.watch(videoSrc, () => runSequence('_videos', '_browser-sync-reload'));
   gulp.watch(phpSrc, ['_browser-sync-reload']);
 });
 
@@ -188,6 +195,26 @@ gulp.task('_fonts', 'Copy fonts to build', () => {
     if (app.fonts) {
       const SRC = app.fonts.src.map(source => app.baseDir + source);
       const DEST = app.baseDir + app.buildLocations.fonts;
+
+      return gulp.src(SRC)
+      .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') }))
+      .pipe(gulp.dest(DEST));
+    }
+  })
+  .filter(stream => !!stream);
+
+  return merge(tasks);
+});
+
+// //////////////////////////////////////////////////////////////////////
+//                     VIDEOS PROCESSING PIPELINE                      //
+// //////////////////////////////////////////////////////////////////////
+
+gulp.task('_videos', 'Copy videos to build', () => {
+  const tasks = APPS.map((app) => {
+    if (app.videos) {
+      const SRC = app.videos.src.map(source => app.baseDir + source);
+      const DEST = app.baseDir + app.buildLocations.videos;
 
       return gulp.src(SRC)
       .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') }))
@@ -315,4 +342,3 @@ gulp.task('_clean', 'Clean by removing any compiled files', () => {
     }
   });
 });
-
