@@ -4,7 +4,7 @@
 read -r -p "Really pull production db? [y/N] " response
 case "$response" in
     [yY][eE][sS]|[yY])
-        vagrant ssh -- -t 'ruby /data/wordpress/customizations/insecure-pull-production-db'
+        vagrant ssh -- -t 'ruby /data/wordpress/customizations/insecure-wp-pull-production-db'
         ;;
     *)
         echo 'Production db not pulled.'
