@@ -1,9 +1,9 @@
 {
-  "name": "kehittamo/gulpfile",
+  "name": "kehittamo/kehittamo-seravo-addons",
   "version": "master",
-  "type": "gulpfile",
+  "type": "kehittamo-seravo-addons",
   "source": {
-    "url": "https://bitbucket.org/kehittamo/gulpfile",
+    "url": "https://bitbucket.org/kehittamo/kehittamo-seravo-addons",
     "type": "git",
     "reference": "master"
   },
