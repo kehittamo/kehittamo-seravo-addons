@@ -11,6 +11,9 @@ case "$response" in
         ;;
 esac
 
+# Composer
+composer self-update
+
 # Yarn
 echo 'Running yarn'
 yarn
