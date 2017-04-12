@@ -24,3 +24,4 @@ yarn
 # Information
 echo '==> ksa: roots/bedrock documentation available at https://roots.io/bedrock/'
 echo '==> ksa: kehittamo-seravo-addons documentation available at https://bitbucket.org/kehittamo/kehittamo-seravo-addons'
+echo '==> ksa: Start browsersync server & asset watching by running: gulp serve'
