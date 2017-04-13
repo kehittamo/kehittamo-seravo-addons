@@ -4,7 +4,7 @@
 read -r -p "==> ksa: Actually pull database from production? (no): " response
 case "$response" in
   [yY][eE][sS]|[yY])
-    vagrant ssh -- -t 'ruby /data/wordpress/customizations/insecure-wp-pull-production-db && echo "==> ksa: Creating vagrant:vagrant admin" && wp user create vagrant vagrant@example.local --user_pass=vagrant --role=administrator && echo "==> ksa: Granting vagrant super-admin privileges (Error irrelevant if this is not a multisite install)" && wp super-admin add vagrant'
+    vagrant ssh -- -t 'ruby /data/wordpress/customizations/insecure-wp-pull-production-db && ruby /data/wordpress/customizations/create-vagrant-admin'
     ;;
   *)
     echo '==> ksa: Production database not pulled.'

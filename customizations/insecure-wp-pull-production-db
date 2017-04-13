@@ -23,17 +23,25 @@ end
 port = config['production']['ssh_port'] || config['production']['port']
 host = config['production']['domain'] || config['production']['host']
 username = config['production']['user'] || config['name']
+dev_host = config['development']['domain'] || config['development']['domains'][0]
 
 backupfile = "pre-production-pull-backup-#{Time.now.to_i}.sql"
 
 puts "Saving backup of current development database in /data/db/pre-production-pull-backup.sql..."
 system "wp db export #{backupfile}"
 
-puts "Define new and old siteurl for later search-replacing..."
-siteurl_development = `wp option get siteurl`.strip
-siteurl_production = `ssh -o StrictHostKeyChecking=no -q #{username}@#{host} -p #{port} "wp option get siteurl"`.strip
 # Flag varible with 'network' is local dev is a network install
+puts "Define new and old siteurl for later search-replacing..."
 site_network = `if $(wp core is-installed --network --skip-plugins); then echo network; fi`
+if site_network.include? 'network'
+  # Use config domains in multisite to avoid ambiguity with multisite option gets and site urls
+  siteurl_development = dev_host
+  siteurl_production = host
+else
+  # Use actual siteurls in single sites
+  siteurl_development = `wp option get siteurl`.strip
+  siteurl_production = `ssh -o StrictHostKeyChecking=no -q #{username}@#{host} -p #{port} "wp option get siteurl"`.strip
+end
 
 puts "==> Production site URL: #{siteurl_production}"
 puts "==> Development site URL: #{siteurl_development}"
@@ -44,19 +52,16 @@ else
   puts "==> This is a normal WordPress single install."
 end
 
-# Be a bit more robust and help users avoid unintelligent search-replaces
-# exit unless HighLine.agree('Is the information above correct (yes/no)?')
-
 puts "Pulling database from production with 'wp db export'..."
 system "ssh -o StrictHostKeyChecking=no -q #{username}@#{host} -p #{port} 'wp db export - --single-transaction' " +
- "| pv -Wrbp " +
- "| wp db import -"
+  "| pv -Wrbp " +
+  "| wp db import -"
 
 # Search Replace all but guid because guid is just a name for post
 puts "Search-replacing #{siteurl_production} with #{siteurl_development}..."
 
 if site_network.include? 'network'
-  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid --network --url=#{siteurl_production}"
+  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid --all-tables --url=#{siteurl_production}"
 else
-  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid"
+  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid --all-tables"
 end

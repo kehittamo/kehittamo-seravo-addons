@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+##
+# Create vagrant:vagrant admin user
+##
+
+site_network = `if $(wp core is-installed --network --skip-plugins); then echo network; fi`
+
+puts "==> ksa: Creating vagrant:vagrant admin"
+system "wp user create vagrant vagrant@example.local --user_pass=vagrant --role=administrator"
+if site_network.include? 'network'
+  puts "==> ksa: Granting vagrant super-admin privileges"
+  system "wp super-admin add vagrant"
+end
