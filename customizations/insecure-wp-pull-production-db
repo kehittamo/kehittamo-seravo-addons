@@ -56,7 +56,7 @@ system "ssh -o StrictHostKeyChecking=no -q #{username}@#{host} -p #{port} 'wp db
 puts "Search-replacing #{siteurl_production} with #{siteurl_development}..."
 
 if site_network.include? 'network'
-  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid --all-tables --network --url=#{siteurl_production}"
+  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid --network --url=#{siteurl_production}"
 else
-  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid --all-tables"
+  system "wp search-replace '#{siteurl_production}' '#{siteurl_development}' --skip-columns=guid"
 end
