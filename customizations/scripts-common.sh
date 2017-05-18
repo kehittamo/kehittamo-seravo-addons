@@ -1,5 +1,28 @@
 #!/bin/bash
 
+# Initialize a new theme
+read -r -p "==> ksa: Would you like to initialize a new theme? (no): " response
+case "$response" in
+  [yY][eE][sS]|[yY])
+    read -e -p "==> ksa: What would you like to call the new theme? (kage): " themename
+    [ -z "${themename}" ] && themename='kage'
+    echo '==> ksa: Cloning kage starter theme into themes directory and removing its .git directory'
+    git clone git@bitbucket.org:kehittamo/kage.git htdocs/wp-content/themes/$themename
+    rm -rf htdocs/wp-content/themes/$themename/.git
+    if [ ! $themename = "kage" ]; then
+      echo "==> ksa: Setting up theme $themename"
+      mv htdocs/wp-content/themes/$themename/lang/kage.pot htdocs/wp-content/themes/$themename/lang/$themename.pot
+      find htdocs/wp-content/themes/"$themename" -type f -print0 | xargs -0 -n 1 sed -i -e 's/kage/'"$themename"'/g' "$themename"
+      # find /home/www -type f -print0 | xargs -0 sed -i 's/subdomainA\.example\.com/subdomainB.example.com/g'
+    fi
+    echo "==> ksa: Theme $themename succesfully initialized"
+    ;;
+  *)
+    echo '==> ksa: Theme not initialized.'
+    ;;
+esac
+
+
 # Actually pull database from production
 read -r -p "==> ksa: Actually pull database from production? (no): " response
 case "$response" in
