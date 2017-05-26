@@ -14,10 +14,12 @@ case "$response" in
       echo "==> ksa: Setting up theme $themename"
       mv htdocs/wp-content/themes/$themename/lang/kage.pot htdocs/wp-content/themes/$themename/lang/$themename.pot
       sed -i -e "s/Kage/$themename/g" htdocs/wp-content/themes/$themename/style.css
-      cp gulp.config.js.example gulp.config.js
       sed -i -e "s/kage/$themename/g" gulp.config.js
       vagrant ssh -- -t "wp theme activate $themename"
     fi
+    cd htdocs/wp-content/themes/$themename
+    bower install
+    cd ../../../../
     echo "==> ksa: Theme $themename succesfully initialized and activated."
     ;;
   *)
