@@ -1,0 +1,69 @@
+module.exports = {
+
+  server: {
+    baseDir: './',
+    proxy: "https://kage.local",
+    port: 1337,
+    ui: {
+      port: 1338
+    },
+    notify: true
+  },
+  apps: [
+    {
+      name: 'kage',
+      baseDir: './htdocs/wp-content/themes/kage/',
+      styles: {
+        src: [ 'assets/styles/**/*.scss' ],
+        sourcemaps: true,
+        minify: true
+      },
+      js: {
+        src: [
+          'assets/scripts/*.js'
+        ],
+        minify: true
+      },
+      img: {
+        src: [ 'assets/images/**/*' ]
+      },
+      fonts: {
+        src: [ 'assets/fonts/**/*' ]
+      },
+      videos: {
+        src: [ 'assets/videos/**/*' ]
+      },
+      php: {
+        src: [ '**/*.php' ]
+      },
+      revisions: {
+        src: [ 'lib/setup.php' ],
+        dest: [ 'lib' ],
+        cssFile: [ 'main.min.css' ],
+        cssHandle: [ 'kage/css' ],
+        jsFile: [ 'main.min.js' ],
+        jsHandle: [ 'kage/js' ]
+      },
+      buildLocations: {
+        css: 'dist/styles/',
+        js: 'dist/scripts/',
+        img: 'dist/images/',
+        fonts: 'dist/fonts/',
+        videos: 'dist/videos/',
+        clean: 'dist/**/*'
+      },
+      pot: {
+        src: [ '**/*.php' ],
+        //domain: 'kage', // wp-pot cannot handle constants as textdomain
+        dest: [ 'lang' ],
+        destFile: 'kage.pot',
+        package: [ 'kage' ],
+        bugReport: [ 'https://kehittamo.fi' ],
+        lastTranslator: 'Digitoimisto Kehittämö <asiakaspalvelu@kehittamo.fi>',
+        team: 'Kehittämö'
+      },
+      styleGuide: true
+    },
+  ]
+
+}
