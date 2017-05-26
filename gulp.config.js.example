@@ -62,7 +62,7 @@ module.exports = {
         lastTranslator: 'Digitoimisto Kehittämö <asiakaspalvelu@kehittamo.fi>',
         team: 'Kehittämö'
       },
-      styleGuide: true
+      styleGuide: false
     },
   ]
 

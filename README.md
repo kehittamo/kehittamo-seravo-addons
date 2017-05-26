@@ -11,3 +11,4 @@ Sugar for `vagrant up`.
 
 ##Prerequisites
 * [Yarn](https://yarnpkg.com/en/docs/install)
+* [Bower](https://bower.io/)
