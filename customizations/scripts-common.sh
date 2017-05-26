@@ -9,12 +9,14 @@ case "$response" in
     echo '==> ksa: Cloning kage starter theme into themes directory and removing its .git directory'
     git clone git@bitbucket.org:kehittamo/kage.git htdocs/wp-content/themes/$themename
     rm -rf htdocs/wp-content/themes/$themename/.git
-    cp gulp.config.js.example gulp.config.js
+    if [ -f gulp.config.js.example ] && [ ! -f gulp.config.js ]; then
+      cp gulp.config.js.example gulp.config.js
+      sed -i -e "s/kage/$themename/g" gulp.config.js
+    fi
     if [ ! $themename = "kage" ]; then
       echo "==> ksa: Setting up theme $themename"
       mv htdocs/wp-content/themes/$themename/lang/kage.pot htdocs/wp-content/themes/$themename/lang/$themename.pot
       sed -i -e "s/Kage/$themename/g" htdocs/wp-content/themes/$themename/style.css
-      sed -i -e "s/kage/$themename/g" gulp.config.js
       vagrant ssh -- -t "wp theme activate $themename"
     fi
     cd htdocs/wp-content/themes/$themename
