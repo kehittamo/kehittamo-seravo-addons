@@ -3,7 +3,7 @@
 Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/wordpress).
 
 ## Usage
-Clone [Seravo/wordpress](https://github.com/kehittamo/wordpress)
+Clone [Seravo/wordpress](https://github.com/kehittamo/wordpress).
 Edit your composer.json:
 ```
 {
@@ -24,19 +24,20 @@ Edit your composer.json:
 }
 ```
 Remove your composer.lock.
+
 Run `vagrant up`
 
 ## Features
 * [Kage](https://github.com/kehittamo/kage) starter theme initialization
 * Master gulpfile asset pipeline with
--- Error notifications
--- SASS/LESS preprocessing
--- CSS source maps and minification
--- Styles and scripts revisioning
--- Image minification
--- .pot file creation
--- Style guide creation
--- Livereload server
+  * Error notifications
+  * SASS/LESS preprocessing
+  * CSS source maps and minification
+  * Styles and scripts revisioning
+  * Image minification
+  * .pot file creation
+  * Style guide creation
+  * Livereload server
 * A working pull production database script
 * .env initialization
 * Yarn execution
