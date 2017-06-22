@@ -1,8 +1,8 @@
-#Kehittamo Seravo Addons
+# Kehittamo Seravo Addons
 
 Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/wordpress).
 
-##Usage
+## Usage
 Clone [Seravo/wordpress](https://github.com/kehittamo/wordpress)
 Edit your composer.json:
 ```
@@ -26,7 +26,7 @@ Edit your composer.json:
 Remove your composer.lock.
 Run `vagrant up`
 
-##Features
+## Features
 * [Kage](https://github.com/kehittamo/kage) starter theme initialization
 * Master gulpfile asset pipeline with
 -- Error notifications
@@ -42,9 +42,9 @@ Run `vagrant up`
 * Yarn execution
 * Support for project specific scripts
 
-##Prerequisites
+## Prerequisites
 * [Yarn](https://yarnpkg.com/en/docs/install)
 * [Bower](https://bower.io/)
 
-##Troubleshooting
+## Troubleshooting
 The assumption is your project directory and the project name in config.yml are the same. If not, edit your gulp.config.js proxy address to match your project name.
