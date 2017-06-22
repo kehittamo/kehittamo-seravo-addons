@@ -55,8 +55,7 @@ module.exports = {
       pot: {
         src: [ '**/*.php' ],
         //domain: 'kage', // wp-pot cannot handle constants as textdomain
-        dest: [ 'lang' ],
-        destFile: 'kage.pot',
+        dest: [ 'lang/kage.pot' ],
         package: [ 'kage' ],
         bugReport: [ 'https://kehittamo.fi' ],
         lastTranslator: 'Digitoimisto Kehittämö <asiakaspalvelu@kehittamo.fi>',

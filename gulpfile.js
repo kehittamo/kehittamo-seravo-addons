@@ -269,7 +269,6 @@ gulp.task('_pot', 'Generate translation file', () => {
       .pipe(sort())
       .pipe(wpPot({
         domain: app.pot.domain,
-        destFile: app.pot.destFile,
         package: app.pot.package,
         bugReport: app.pot.bugReport,
         lastTranslator: app.pot.lastTranslator,
