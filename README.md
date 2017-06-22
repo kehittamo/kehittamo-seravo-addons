@@ -5,16 +5,16 @@ Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/w
 ## Usage
 Clone [Seravo/wordpress](https://github.com/kehittamo/wordpress) and setup config.yml.
 
-Edit your composer.json:
+Modify your composer.json:
 ```
 {
   "repositories": [
-  {
-    "type": "vcs",
+    {
+      "type": "vcs",
       "url": "https://github.com/kehittamo/kehittamo-seravo-addons"
-  }
+    }
   ],
-  "requireDev": {
+  "require-dev": {
     "kehittamo/kehittamo-seravo-addons": "dev-master"
   },
   "extra": {
