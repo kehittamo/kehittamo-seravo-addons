@@ -18,11 +18,11 @@ case "$response" in
         echo "==> ksa: Setting up theme $themename"
         mv htdocs/wp-content/themes/$themename/lang/kage.pot htdocs/wp-content/themes/$themename/lang/$themename.pot
         sed -i '' -e "s/Kage/$themename/g" htdocs/wp-content/themes/$themename/style.css
-        vagrant ssh -- -t "wp theme activate $themename"
       fi
       cd htdocs/wp-content/themes/$themename
       bower install
       cd ../../../../
+      vagrant ssh -- -t "wp theme activate $themename"
       echo "==> ksa: Theme $themename succesfully initialized and activated."
     else
       echo "==> ksa: Theme $themename directory already exists. Theme not initialized."
