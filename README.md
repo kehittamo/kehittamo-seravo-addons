@@ -8,20 +8,20 @@ Clone [Seravo/wordpress](https://github.com/kehittamo/wordpress).
 Edit your composer.json:
 ```
 {
-	"repositories": [
-	    {
-            "type": "vcs",
-            "url": "https://github.com/kehittamo/kehittamo-seravo-addons"
-        }
-    ],
-    "requireDev": {
-        "kehittamo/kehittamo-seravo-addons": "dev-master"
-    },
-    "extra": {
-		"dropin-paths": {
-			".": ["type:kehittamo-seravo-addons"]
-		}
-	}
+  "repositories": [
+  {
+    "type": "vcs",
+      "url": "https://github.com/kehittamo/kehittamo-seravo-addons"
+  }
+  ],
+  "requireDev": {
+    "kehittamo/kehittamo-seravo-addons": "dev-master"
+  },
+  "extra": {
+    "dropin-paths": {
+      ".": ["type:kehittamo-seravo-addons"]
+    }
+  }
 }
 ```
 Remove your composer.lock.
