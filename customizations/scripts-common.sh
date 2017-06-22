@@ -40,6 +40,13 @@ case "$response" in
     ;;
 esac
 
+# Create default .env.example if not found
+if [ ! -f .env.example ]; then
+  touch .env.example
+  echo "ENABLE_DEBUG=true" >> .env.example
+  echo "DISABLE_DEBUG_NOTICES=true" >> env.example
+fi
+
 # Add to .gitignore. Use .env to determine if this has been done.
 if [ -f .env.example ] && [ ! -f .env ]; then
   echo '==> ksa: Extending .gitignore with Kehittamo Seravo Addons'
