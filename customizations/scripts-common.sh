@@ -4,8 +4,9 @@
 read -r -p "==> ksa: Would you like to initialize a new theme? (no): " response
 case "$response" in
   [yY][eE][sS]|[yY])
-    read -e -p "==> ksa: What would you like to call the new theme? (kage): " themename
-    [ -z "${themename}" ] && themename='kage'
+    dirname=${PWD##*/}
+    read -e -p "==> ksa: What would you like to call the new theme? ($dirname): " themename
+    [ -z "${themename}" ] && themename=$dirname
     if [ ! -d htdocs/wp-content/themes/$themename ]; then
       echo '==> ksa: Cloning kage starter theme into themes directory and removing its .git directory'
       git clone git@github.com:kehittamo/kage.git htdocs/wp-content/themes/$themename
