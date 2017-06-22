@@ -7,7 +7,7 @@ case "$response" in
     read -e -p "==> ksa: What would you like to call the new theme? (kage): " themename
     [ -z "${themename}" ] && themename='kage'
     echo '==> ksa: Cloning kage starter theme into themes directory and removing its .git directory'
-    git clone git@bitbucket.org:kehittamo/kage.git htdocs/wp-content/themes/$themename
+    git clone git@github.com:kehittamo/kage.git htdocs/wp-content/themes/$themename
     rm -rf htdocs/wp-content/themes/$themename/.git
     if [ -f gulp.config.js.example ] && [ ! -f gulp.config.js ]; then
       cp gulp.config.js.example gulp.config.js
@@ -39,6 +39,19 @@ case "$response" in
     echo '==> ksa: Production database not pulled.'
     ;;
 esac
+
+# Add to .gitignore. Use .env to determine if this has been done.
+if [ -f .env.example ] && [ ! -f .env ]; then
+  echo '==> ksa: Extending .gitignore with Kehittamo Seravo Addons'
+  echo "" >> .gitignore
+  echo "# Kehittamo Seravo Addons" >> .gitignore
+  echo "package.json" >> .gitignore
+  echo "gulpfile.js" >> .gitignore
+  echo "gulp.config.js.example" >> .gitignore
+  echo "vagrant-up-customizer.sh" >> .gitignore
+  echo "customizations/*" >> .gitignore
+  echo "!customizations/scripts-project.sh" >> .gitignore
+fi
 
 # Copy ENV if not copied yet
 if [ -f .env.example ] && [ ! -f .env ]; then

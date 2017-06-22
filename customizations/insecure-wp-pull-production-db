@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
-##
+#
 # Pull database from production and Search-Replace with details from config.yml
-##
+#
 require 'yaml'
 require 'highline/import'
 
