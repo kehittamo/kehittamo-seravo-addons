@@ -4,6 +4,7 @@ Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/w
 
 ## Usage
 Clone [Seravo/wordpress](https://github.com/kehittamo/wordpress).
+
 Edit your composer.json:
 ```
 {
