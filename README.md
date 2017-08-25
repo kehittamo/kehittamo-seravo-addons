@@ -3,7 +3,7 @@
 Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/wordpress).
 
 ## Usage
-Clone [Seravo/wordpress](https://github.com/kehittamo/wordpress) and setup config.yml.
+Clone [Seravo/wordpress](https://github.com/Seravo/wordpress) and setup config.yml.
 
 Modify your composer.json:
 ```
