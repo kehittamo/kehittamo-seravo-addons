@@ -17,11 +17,6 @@ Modify your composer.json:
   "require-dev": {
     "kehittamo/kehittamo-seravo-addons": "dev-master"
   },
-  "extra": {
-    "dropin-paths": {
-      ".": ["type:kehittamo-seravo-addons"]
-    }
-  }
 }
 ```
 Remove your composer.lock.
