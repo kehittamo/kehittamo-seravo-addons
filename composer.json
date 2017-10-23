@@ -1,9 +1,11 @@
 {
   "name": "kehittamo/kehittamo-seravo-addons",
   "version": "master",
-  "type": "kehittamo-seravo-addons",
+  "type": "seravo-wordpress-dropin",
+  "license": "MIT",
+  "minimum-stability": "stable",
   "source": {
-    "url": "https://bitbucket.org/kehittamo/kehittamo-seravo-addons",
+    "url": "https://github.com/kehittamo/kehittamo-seravo-addons",
     "type": "git",
     "reference": "master"
   },
