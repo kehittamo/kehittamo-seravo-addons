@@ -2,26 +2,11 @@
 
 Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/wordpress).
 
-## Usage
-Clone [Seravo/wordpress](https://github.com/Seravo/wordpress) and setup config.yml.
+## Installation & Usage
 
-Modify your composer.json:
-```
-{
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/kehittamo/kehittamo-seravo-addons"
-    }
-  ],
-  "require-dev": {
-    "kehittamo/kehittamo-seravo-addons": "dev-master"
-  },
-}
-```
-Remove your composer.lock.
+$ `composer require --dev kehittamo/kehittamo-seravo-addons dev-master`
 
-Run `vagrant up`
+$ `vagrant up`
 
 ## Features
 * [Kage](https://github.com/kehittamo/kage) starter theme initialization
