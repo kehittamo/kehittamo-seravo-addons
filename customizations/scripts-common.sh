@@ -13,11 +13,11 @@ case "$response" in
       rm -rf htdocs/wp-content/themes/$themename/.git
       if [ -f gulp.config.js.example ] && [ ! -f gulp.config.js ]; then
         cp gulp.config.js.example gulp.config.js
-        sed -i '' -e "s/\b(?!pack)\w*kage\b/$themename/g" gulp.config.js # Don't replace the word package
+        perl -pi -e "s/\b(?\!pack)\w*kage\b/$themename/g" gulp.config.js # Don't replace the word package
       fi
       if [ -f bitbucket-pipelines.yml.example ] && [ ! -f bitbucket-pipelines.yml ]; then
         cp bitbucket-pipelines.yml.example bitbucket-pipelines.yml
-        sed -i '' -e "s/\b(?!pack)\w*kage\b/$themename/g" bitbucket-pipelines.yml
+        perl -pi -e "s/\b(?\!pack)\w*kage\b/$themename/g" bitbucket-pipelines.yml
       fi
       if [ ! $themename = "kage" ]; then
         echo "==> ksa: Setting up theme $themename"
