@@ -19,6 +19,7 @@ module.exports = {
       },
       js: {
         src: ['assets/scripts/*.js'],
+        watch: ['assets/scripts/**/*.js'],
         minify: true,
       },
       img: {
