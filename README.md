@@ -26,7 +26,6 @@ $ `vagrant up`
 
 ## Prerequisites
 * [Yarn](https://yarnpkg.com/en/docs/install)
-* [Bower](https://bower.io/)
 
 ## Troubleshooting
 The assumption is your project directory and the project name in config.yml are the same. If not, edit your gulp.config.js proxy address to match your project name.

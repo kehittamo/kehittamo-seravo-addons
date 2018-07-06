@@ -1,0 +1,27 @@
+
+{
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["prettier", "eslint-plugin-import"],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5"
+      }
+    ],
+    "semi": [1, "always"]
+  },
+  "settings": {
+    "import/core-modules": [
+      "jquery"
+    ]
+  },
+  "globals": {
+    "wp": true
+  }
+}

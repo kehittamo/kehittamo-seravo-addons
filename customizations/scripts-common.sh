@@ -13,16 +13,18 @@ case "$response" in
       rm -rf htdocs/wp-content/themes/$themename/.git
       if [ -f gulp.config.js.example ] && [ ! -f gulp.config.js ]; then
         cp gulp.config.js.example gulp.config.js
-        sed -i '' -e "s/kage/$themename/g" gulp.config.js
+        sed -i '' -e "s/\b(?!pack)\w*kage\b/$themename/g" gulp.config.js # Don't replace the word package
+      fi
+      if [ -f bitbucket-pipelines.yml.example ] && [ ! -f bitbucket-pipelines.yml ]; then
+        cp bitbucket-pipelines.yml.example bitbucket-pipelines.yml
+        sed -i '' -e "s/\b(?!pack)\w*kage\b/$themename/g" bitbucket-pipelines.yml
       fi
       if [ ! $themename = "kage" ]; then
         echo "==> ksa: Setting up theme $themename"
         mv htdocs/wp-content/themes/$themename/lang/kage.pot htdocs/wp-content/themes/$themename/lang/$themename.pot
         sed -i '' -e "s/Kage/$themename/g" htdocs/wp-content/themes/$themename/style.css
+        sed -i '' -e "s/\/kage\//\/$themename\//g" package.json # For scripts
       fi
-      cd htdocs/wp-content/themes/$themename
-      bower install
-      cd ../../../../
       vagrant ssh -- -t "wp theme activate $themename"
       echo "==> ksa: Theme $themename succesfully initialized and activated."
     else
