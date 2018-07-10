@@ -30,18 +30,25 @@ case "$response" in
     else
       echo "==> ksa: Theme $themename directory already exists. Theme not initialized."
     fi
+    # If kehittamo's library isn't installed, ask if it should be.
+    if [[ -z `composer show kehittamo/kehittamo-seravo-library &> /dev/null` ]]; then
+      read -r -p "==> ksa: Would you like to require kehittamo's utility library? (no): " response
+      case "$response" in
+        [yY][eE][sS]|[yY])
+          echo "==> ksa: Requiring kehittamo/kehittamo-seravo-library..."
+          composer require kehittamo/kehittamo-seravo-library
+          ;;
+        *)
+          echo "==> ksa: Not requiring kehittamo's library."
+          ;;
+      esac
+    fi
     ;;
   *)
     echo '==> ksa: Theme not initialized.'
     ;;
 esac
 
-# Testing library requiring
-echo "TESTING FOR LIBRARY..."
-if [[ ! -z `composer show kehittamo/kehittamo-seravo-library &> /dev/null` ]]; then
-  echo "REQUIRING LIBRARY..."
-  composer require kehittamo/kehittamo-seravo-library
-fi
 
 # Actually pull database from production
 read -r -p "==> ksa: Actually pull database from production? (no): " response
