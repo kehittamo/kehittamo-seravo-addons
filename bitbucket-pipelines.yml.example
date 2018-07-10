@@ -42,7 +42,7 @@ pipelines:
           name: Deploy to staging and build assets.
           deployment: staging
           script:
-            - ssh -p $STAGING_PORT $USER_HOST 'cd /data/wordpress/; git status; git fetch; git merge origin/staging; composer install --no-dev; wp-restart-nginx; yarn && yarn build;'
+            - ssh -p $STAGING_PORT $USER_HOST 'cd /data/wordpress/; git status; git fetch; git merge origin/staging; composer install --no-dev; wp-restart-nginx; yarn && yarn build; ./customizations/scripts-deployment-tag.sh;'
     master:
       - step:
           name: Run PHPCS.
@@ -68,5 +68,5 @@ pipelines:
           name: Deploy to production and build assets.
           deployment: production
           script:
-            - ssh -p $PRODUCTION_PORT $USER_HOST 'cd /data/wordpress/; git status; git fetch; git merge origin/master; composer install --no-dev; wp-restart-nginx; yarn && yarn build;'
+            - ssh -p $PRODUCTION_PORT $USER_HOST 'cd /data/wordpress/; git status; git fetch; git merge origin/master; composer install --no-dev; wp-restart-nginx; yarn && yarn build; ./customizations/scripts-deployment-tag.sh;'
 

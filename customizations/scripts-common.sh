@@ -79,6 +79,7 @@ if [ -f .env.example ] && [ ! -f .env ]; then
   echo "vagrant-up-customizer.sh" >> .gitignore
   echo "customizations/*" >> .gitignore
   echo "!customizations/scripts-project.sh" >> .gitignore
+  echo "!customizations/scripts-deployment-tag.sh" >> .gitignore
 fi
 
 # Copy ENV if not copied yet
