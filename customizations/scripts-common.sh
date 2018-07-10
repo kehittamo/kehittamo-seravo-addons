@@ -36,6 +36,13 @@ case "$response" in
     ;;
 esac
 
+# Testing library requiring
+echo "TESTING FOR LIBRARY..."
+if [[ ! -z `composer show kehittamo/kehittamo-seravo-library &> /dev/null` ]]; then
+  echo "REQUIRING LIBRARY..."
+  composer require kehittamo/kehittamo-seravo-library
+fi
+
 # Actually pull database from production
 read -r -p "==> ksa: Actually pull database from production? (no): " response
 case "$response" in

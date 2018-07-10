@@ -59,8 +59,8 @@ gulp.task('build', 'Clean, run pipelines and revision', () => {
     '_img',
     '_fonts',
     '_videos',
-    '_pot',
-    '_rev'
+    '_pot'
+    // '_rev'
   );
 });
 
