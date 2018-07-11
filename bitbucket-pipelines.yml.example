@@ -39,7 +39,7 @@ pipelines:
           script:
             - ssh -p $STAGING_PORT $USER_HOST 'cd /data/wordpress/; git status; [ -z "$(git status --porcelain)" ]; exit $?'
       - step:
-          name: Deploy to staging and build assets.
+          name: Deploy to staging and build assets, and add tag for cache busting..
           deployment: staging
           script:
             - ssh -p $STAGING_PORT $USER_HOST 'cd /data/wordpress/; git status; git fetch; git merge origin/staging; composer install --no-dev; wp-restart-nginx; yarn && yarn build; ./customizations/scripts-deployment-tag.sh;'
@@ -56,7 +56,7 @@ pipelines:
             - rm composer.*
             - composer require dealerdirect/phpcodesniffer-composer-installer squizlabs/php_codesniffer wp-coding-standards/wpcs --no-interaction --prefer-dist --no-progress
             - composer install --prefer-dist --no-progress --no-interaction
-            - ./vendor/bin/phpcs --ignore=twenty,htdocs/wp-content/themes/advertica-child,htdocs/wp-content/themes/eclisse/lib/localization.php htdocs/wp-content/themes/eclisse -pn --extensions=php --standard=WordPress-Core
+            - ./vendor/bin/phpcs --ignore=twenty htdocs/wp-content/themes/kage -pn --extensions=php --standard=WordPress-Core
       - step:
           name: Lint SCSS and JS.
             - yarn && yarn lint
@@ -65,7 +65,7 @@ pipelines:
           script:
             - ssh -p $PRODUCTION_PORT $USER_HOST 'cd /data/wordpress/; git status; [ -z "$(git status --porcelain)" ]; exit $?'
       - step:
-          name: Deploy to production and build assets.
+          name: Deploy to production, build assets, and add tag for cache busting.
           deployment: production
           script:
             - ssh -p $PRODUCTION_PORT $USER_HOST 'cd /data/wordpress/; git status; git fetch; git merge origin/master; composer install --no-dev; wp-restart-nginx; yarn && yarn build; ./customizations/scripts-deployment-tag.sh;'
