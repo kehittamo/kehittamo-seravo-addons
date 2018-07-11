@@ -60,7 +60,6 @@ gulp.task('build', 'Clean, run pipelines and revision', () => {
     '_fonts',
     '_videos',
     '_pot'
-    // '_rev'
   );
 });
 
@@ -276,44 +275,6 @@ gulp.task('_videos', 'Copy videos to build', () => {
           plumber({
             errorHandler: notify.onError('Error: <%= error.message %>'),
           })
-        )
-        .pipe(gulp.dest(DEST));
-    }
-    return null;
-  }).filter(stream => !!stream);
-
-  return merge(tasks);
-});
-
-// /////////////////////////////////////////////////////////////////////
-//                             REVISIONS                              //
-// /////////////////////////////////////////////////////////////////////
-
-gulp.task('_rev', 'Revision styles and scripts', () => {
-  const tasks = APPS.map(app => {
-    if (app.revisions) {
-      const SRC = app.revisions.src.map(source => app.baseDir + source);
-      const DEST = app.baseDir + app.revisions.dest;
-
-      return gulp
-        .src(SRC)
-        .pipe(
-          plumber({
-            errorHandler: notify.onError('Error: <%= error.message %>'),
-          })
-        )
-        .pipe(
-          gulpif(
-            fs.existsSync(
-              app.baseDir + app.buildLocations.css + app.revisions.cssFile
-            ),
-            wpRev({
-              css: app.baseDir + app.buildLocations.css + app.revisions.cssFile,
-              cssHandle: app.revisions.cssHandle,
-              js: app.baseDir + app.buildLocations.js + app.revisions.jsFile,
-              jsHandle: app.revisions.jsHandle,
-            })
-          )
         )
         .pipe(gulp.dest(DEST));
     }

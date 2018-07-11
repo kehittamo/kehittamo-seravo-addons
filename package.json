@@ -24,7 +24,7 @@
     "lint:scss": "stylelint htdocs/wp-content/themes/kage/assets/styles/components/**/*.scss",
     "lint:js": "eslint htdocs/wp-content/themes/kage/assets/scripts",
     "fix": "yarn fix:scss && yarn fix:js",
-    "fix:scss": "stylelint --fix htdocs/wp-content/themes/kage/assets/styles/components/**/*.scss",
+    "fix:scss": "stylelint --fix htdocs/wp-content/themes/kage/assets/styles/**/*.scss",
     "fix:js": "eslint --fix htdocs/wp-content/themes/kage/assets/scripts"
   },
   "repository": {
