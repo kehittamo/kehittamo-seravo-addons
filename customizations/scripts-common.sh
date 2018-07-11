@@ -17,7 +17,6 @@ case "$response" in
       fi
       if [ -f bitbucket-pipelines.yml.example ] && [ ! -f bitbucket-pipelines.yml ]; then
         cp bitbucket-pipelines.yml.example bitbucket-pipelines.yml
-        perl -pi -e "s/\b(?!pack)\w*kage\b/$themename/g" bitbucket-pipelines.yml
       fi
       if [ ! $themename = "kage" ]; then
         echo "==> ksa: Setting up theme $themename"
