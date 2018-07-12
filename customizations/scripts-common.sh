@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Major revision to be used for theme and library.
+MAJOR="2"
+
 # Initialize a new theme
 read -r -p "==> ksa: Would you like to initialize a new theme? (no): " response
 case "$response" in
@@ -12,7 +15,7 @@ case "$response" in
       git clone git@github.com:kehittamo/kage.git htdocs/wp-content/themes/$themename
       cd htdocs/wp-content/themes/$themename
       # Try checking out theme by tag.
-      TAG="2.*"
+      TAG="$MAJOR.*"
       LATEST_TAG=`git describe --tags --abbrev=0 --match $TAG 2> /dev/null`
       if [[ -z $LATEST_TAG ]]; then
         echo "==> ksa: Failed to checkout latest theme matching $TAG, using latest commit."
@@ -46,7 +49,7 @@ case "$response" in
         [yY][eE][sS]|[yY])
           echo "==> ksa: Requiring kehittamo/kehittamo-seravo-library..."
           composer config repositories.kehittamo-seravo-library vcs https://github.com/kehittamo/kehittamo-seravo-library
-          composer require "kehittamo/kehittamo-seravo-library:^2.0.0"
+          composer require "kehittamo/kehittamo-seravo-library:^$MAJOR.0.0"
           ;;
         *)
           echo "==> ksa: Not requiring kehittamo's library."
