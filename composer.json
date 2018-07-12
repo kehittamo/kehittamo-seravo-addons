@@ -1,14 +1,9 @@
 {
   "name": "kehittamo/kehittamo-seravo-addons",
-  "version": "master",
   "type": "seravo-wordpress-dropin",
+  "description": "Sugar for vagrant up when using Seravo/wordpress",
   "license": "MIT",
   "minimum-stability": "stable",
-  "source": {
-    "url": "https://github.com/kehittamo/kehittamo-seravo-addons",
-    "type": "git",
-    "reference": "master"
-  },
   "require": {
     "php": ">=5.4.0",
     "composer/installers": "~1.0"

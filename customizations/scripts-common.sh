@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Major revision to be used for theme and library.
+MAJOR="2"
+
 # Initialize a new theme
 read -r -p "==> ksa: Would you like to initialize a new theme? (no): " response
 case "$response" in
@@ -10,7 +13,17 @@ case "$response" in
     if [ ! -d htdocs/wp-content/themes/$themename ]; then
       echo '==> ksa: Cloning kage starter theme into themes directory and removing its .git directory'
       git clone git@github.com:kehittamo/kage.git htdocs/wp-content/themes/$themename
-      rm -rf htdocs/wp-content/themes/$themename/.git
+      cd htdocs/wp-content/themes/$themename
+      # Try checking out theme by tag.
+      TAG="$MAJOR.*"
+      LATEST_TAG=`git describe --tags --abbrev=0 --match $TAG 2> /dev/null`
+      if [[ -z $LATEST_TAG ]]; then
+        echo "==> ksa: Failed to checkout latest theme matching $TAG, using latest commit."
+      else
+        git checkout $TAG
+      fi
+      rm -rf .git
+      cd -
       if [ -f gulp.config.js.example ] && [ ! -f gulp.config.js ]; then
         cp gulp.config.js.example gulp.config.js
         perl -pi -e "s/\b(?!pack)\w*kage\b/$themename/g" gulp.config.js # Don't replace the word package
@@ -36,7 +49,7 @@ case "$response" in
         [yY][eE][sS]|[yY])
           echo "==> ksa: Requiring kehittamo/kehittamo-seravo-library..."
           composer config repositories.kehittamo-seravo-library vcs https://github.com/kehittamo/kehittamo-seravo-library
-          composer require kehittamo/kehittamo-seravo-library
+          composer require "kehittamo/kehittamo-seravo-library:^$MAJOR.0.0"
           ;;
         *)
           echo "==> ksa: Not requiring kehittamo's library."
