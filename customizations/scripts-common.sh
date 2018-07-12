@@ -48,7 +48,6 @@ case "$response" in
       case "$response" in
         [yY][eE][sS]|[yY])
           echo "==> ksa: Requiring kehittamo/kehittamo-seravo-library..."
-          composer config repositories.kehittamo-seravo-library vcs https://github.com/kehittamo/kehittamo-seravo-library
           composer require "kehittamo/kehittamo-seravo-library:^$MAJOR.0.0"
           ;;
         *)
