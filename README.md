@@ -4,7 +4,7 @@ Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/w
 
 ## Installation & Usage
 
-$ `composer require --dev kehittamo/kehittamo-seravo-addons dev-master`
+$ `composer require --dev kehittamo/kehittamo-seravo-addons:^2.0.0`
 
 $ `vagrant up`
 
