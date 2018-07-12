@@ -14,19 +14,21 @@ $ `vagrant up`
   * Error notifications
   * SASS/LESS preprocessing
   * CSS source maps and minification
-  * Styles and scripts revisioning
+  * JavaScript processing and bundling with Webpack
+  * Styles and scripts linting
   * Image minification
   * .pot file creation
   * Style guide creation
   * Livereload server
+* Asset building on production and staging
 * A working pull production database script
 * .env initialization
 * Yarn execution
 * Support for project specific scripts
+* Optionally adds Kehittamo Seravo Library during theme generation
 
 ## Prerequisites
 * [Yarn](https://yarnpkg.com/en/docs/install)
-* [Bower](https://bower.io/)
 
 ## Troubleshooting
 The assumption is your project directory and the project name in config.yml are the same. If not, edit your gulp.config.js proxy address to match your project name.

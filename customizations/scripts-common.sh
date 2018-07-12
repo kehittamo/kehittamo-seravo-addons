@@ -13,26 +13,42 @@ case "$response" in
       rm -rf htdocs/wp-content/themes/$themename/.git
       if [ -f gulp.config.js.example ] && [ ! -f gulp.config.js ]; then
         cp gulp.config.js.example gulp.config.js
-        sed -i '' -e "s/kage/$themename/g" gulp.config.js
+        perl -pi -e "s/\b(?!pack)\w*kage\b/$themename/g" gulp.config.js # Don't replace the word package
+      fi
+      if [ -f bitbucket-pipelines.yml.example ] && [ ! -f bitbucket-pipelines.yml ]; then
+        cp bitbucket-pipelines.yml.example bitbucket-pipelines.yml
       fi
       if [ ! $themename = "kage" ]; then
         echo "==> ksa: Setting up theme $themename"
         mv htdocs/wp-content/themes/$themename/lang/kage.pot htdocs/wp-content/themes/$themename/lang/$themename.pot
         sed -i '' -e "s/Kage/$themename/g" htdocs/wp-content/themes/$themename/style.css
+        sed -i '' -e "s/\/kage\//\/$themename\//g" package.json # For scripts
       fi
-      cd htdocs/wp-content/themes/$themename
-      bower install
-      cd ../../../../
       vagrant ssh -- -t "wp theme activate $themename"
       echo "==> ksa: Theme $themename succesfully initialized and activated."
     else
       echo "==> ksa: Theme $themename directory already exists. Theme not initialized."
+    fi
+    # If kehittamo's library isn't installed, ask if it should be.
+    if [[ -z `composer show kehittamo/kehittamo-seravo-library &> /dev/null` ]]; then
+      read -r -p "==> ksa: Would you like to require kehittamo's utility library? (no): " response
+      case "$response" in
+        [yY][eE][sS]|[yY])
+          echo "==> ksa: Requiring kehittamo/kehittamo-seravo-library..."
+          composer config repositories.kehittamo-seravo-library vcs https://github.com/kehittamo/kehittamo-seravo-library
+          composer require kehittamo/kehittamo-seravo-library
+          ;;
+        *)
+          echo "==> ksa: Not requiring kehittamo's library."
+          ;;
+      esac
     fi
     ;;
   *)
     echo '==> ksa: Theme not initialized.'
     ;;
 esac
+
 
 # Actually pull database from production
 read -r -p "==> ksa: Actually pull database from production? (no): " response
@@ -63,6 +79,7 @@ if [ -f .env.example ] && [ ! -f .env ]; then
   echo "vagrant-up-customizer.sh" >> .gitignore
   echo "customizations/*" >> .gitignore
   echo "!customizations/scripts-project.sh" >> .gitignore
+  echo "!customizations/scripts-deployment-tag.sh" >> .gitignore
 fi
 
 # Copy ENV if not copied yet
