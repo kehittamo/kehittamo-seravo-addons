@@ -20,7 +20,7 @@ case "$response" in
       if [[ -z $LATEST_TAG ]]; then
         echo "==> ksa: Failed to checkout latest theme matching $TAG, using latest commit."
       else
-        git checkout $TAG
+        git checkout $LATEST_TAG
       fi
       rm -rf .git
       cd -
