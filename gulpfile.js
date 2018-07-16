@@ -50,7 +50,7 @@ const APPS = CONFIG.apps;
 
 gulp.task('default', false, ['help']);
 
-gulp.task('build', 'Clean, run pipelines and revision', () => {
+gulp.task('build', 'Clean and run pipelines', () => {
   runSequence(
     '_clean',
     '_styles',
