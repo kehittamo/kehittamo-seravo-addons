@@ -193,7 +193,13 @@ gulp.task('_js', 'Build JavaScript and move to distribute', () => {
             output: {
               filename: '[name].min.js',
             },
-            plugins: app.js.minify ? [new UglifyJsPlugin()] : [],
+            plugins: app.js.minify
+              ? [
+                  new UglifyJsPlugin({
+                    sourceMap: true,
+                  }),
+                ]
+              : [],
           })
         )
         .pipe(gulp.dest(DEST))
