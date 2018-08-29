@@ -2,6 +2,10 @@
 
 Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/wordpress).
 
+## NOTE!
+
+This is a legacy branch, used for projects pre the 2.0.0 release.
+
 ## Installation & Usage
 
 $ `composer require --dev kehittamo/kehittamo-seravo-addons dev-master`
