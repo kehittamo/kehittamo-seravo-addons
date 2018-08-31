@@ -80,8 +80,8 @@ if [ ! -f .env.example ]; then
   echo "DISABLE_DEBUG_NOTICES=true" >> .env.example
 fi
 
-# Add to .gitignore. Use .env to determine if this has been done.
-if [ -f .env.example ] && [ ! -f .env ]; then
+# Add to .gitignore, if not yet added.
+if ! grep -Fxq "# Kehittamo Seravo Addons" .gitignore; then
   echo '==> ksa: Extending .gitignore with Kehittamo Seravo Addons'
   echo "" >> .gitignore
   echo "# Kehittamo Seravo Addons" >> .gitignore
@@ -89,6 +89,9 @@ if [ -f .env.example ] && [ ! -f .env ]; then
   echo "gulpfile.js" >> .gitignore
   echo "gulp.config.js.example" >> .gitignore
   echo "vagrant-up-customizer.sh" >> .gitignore
+  echo ".eslintrc.json" >> .gitignore
+  echo ".stylelintrc.json" >> .gitignore
+  echo ".bitbucket-pipelines.yml.example" >> .gitignore
   echo "customizations/*" >> .gitignore
   echo "!customizations/scripts-project.sh" >> .gitignore
   echo "!customizations/scripts-deployment-tag.sh" >> .gitignore
