@@ -15,6 +15,7 @@ pipelines:
           - ./vendor/bin/phpcs --ignore=twenty htdocs/wp-content/themes -pn --extensions=php --standard=WordPress-Core
     - step:
         name: Lint SCSS and JS.
+        script:
           - yarn && yarn lint
   branches:
     staging:
@@ -33,6 +34,7 @@ pipelines:
             - ./vendor/bin/phpcs --ignore=twenty htdocs/wp-content/themes -pn --extensions=php --standard=WordPress-Core
       - step:
           name: Lint SCSS and JS.
+          script:
             - yarn && yarn lint
       - step:
           name: Check that remote status is porcelain clean.
@@ -59,6 +61,7 @@ pipelines:
             - ./vendor/bin/phpcs --ignore=twenty htdocs/wp-content/themes -pn --extensions=php --standard=WordPress-Core
       - step:
           name: Lint SCSS and JS.
+          script:
             - yarn && yarn lint
       - step:
           name: Check that remote status is porcelain clean.
