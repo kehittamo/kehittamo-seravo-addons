@@ -1,6 +1,6 @@
 {
   "name": "kehittamo-seravo-addons",
-  "version": "2.0.0",
+  "version": "2.0.4",
   "author": "Kehittamo",
   "description": "Gulp master file for bedrock-style WordPress projects",
   "homepage": "https://kehittamo.fi",
@@ -14,6 +14,11 @@
       "name": "Janne Saarela",
       "email": "janne.saarela@kehittamo.fi",
       "url": "https://github.com/0is1"
+    },
+    {
+      "name": "Alvar Hyvönen",
+      "email": "alvar@namia.io",
+      "url": "http://arbus.fi"
     }
   ],
   "private": true,
