@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Tagging the latest release..."
 if ! [[ $WP_ENV = "staging" || $WP_ENV = "production" ]]; then
-  echo "error: Environment not staging or production."
+  echo "error: Environment ($WP_ENV) not staging or production."
   exit 1;
 fi
 
@@ -10,7 +10,7 @@ MATCH='if (/^v?\d+\.\d+(?:\.\d+)(?:-production|-staging|)\n/) { print "$&"; }'
 
 # Get highest tag number
 LATEST_TAG=`git describe --abbrev=0 --tags 2>/dev/null`
-NEW_TAG="1.0.0"
+NEW_TAG="1.0.0-$WP_ENV"
 
 # If the latest tag exists we validate it.
 if [[ ! -z $LATEST_TAG ]]; then
