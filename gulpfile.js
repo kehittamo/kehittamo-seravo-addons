@@ -187,6 +187,20 @@ gulp.task('_js', 'Build JavaScript and move to distribute', () => {
         .pipe(
           webpack({
             devtool: 'source-map',
+            module: {
+              rules: [
+                {
+                  test: /\.js$/,
+                  exclude: /(node_modules|bower_components)/,
+                  use: {
+                    loader: 'babel-loader',
+                    options: {
+                      presets: ['@babel/preset-env'],
+                    },
+                  },
+                },
+              ],
+            },
             externals: {
               jquery: 'jQuery',
             },
