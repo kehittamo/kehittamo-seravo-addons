@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Tagging the latest release..."
-if ! [[ ${WP_ENV} = "staging" || ${WP_ENV} = "production" ]]; then
+if ! [[ $WP_ENV = "staging" || $WP_ENV = "production" ]]; then
   echo "error: Environment \$WP_ENV ($WP_ENV) not staging or production in your current shell environment ($SHELL)."
   exit 1
 fi
