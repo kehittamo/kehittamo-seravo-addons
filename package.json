@@ -74,7 +74,6 @@
     "gulp-stylelint": "^7.0.0",
     "gulp-using": "^0.1.1",
     "gulp-wp-pot": "^2.0.6",
-    "gulp-wp-rev": "^0.3.0",
     "merge-stream": "^1.0.0",
     "nucleus-styleguide": "^1.0.8",
     "path": "^0.12.7",

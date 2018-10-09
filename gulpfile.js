@@ -13,7 +13,6 @@ const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 const changed = require('gulp-changed');
 const cssNano = require('gulp-clean-css');
-const fs = require('fs');
 const del = require('del');
 const gulp = require('gulp-help')(require('gulp'));
 const gulpif = require('gulp-if');
@@ -29,7 +28,6 @@ const shell = require('gulp-shell');
 const sort = require('gulp-sort');
 const sourcemaps = require('gulp-sourcemaps');
 const wpPot = require('gulp-wp-pot');
-const wpRev = require('gulp-wp-rev');
 const named = require('vinyl-named');
 const webpack = require('webpack-stream');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -242,11 +240,7 @@ gulp.task('_img', 'Compress and distribute images', () => {
           })
         )
         .pipe(changed(DEST))
-        .pipe(
-          imagemin({
-            progressive: true,
-          })
-        )
+        .pipe(imagemin([imagemin.jpegtran({ progressive: true })]))
         .pipe(gulp.dest(DEST));
     }
     return null;
