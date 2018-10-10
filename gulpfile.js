@@ -134,7 +134,15 @@ gulp.task('_styles', 'Build styles and compile out CSS', () => {
         )
         .pipe(changed(DEST))
         .pipe(sourcemaps.init())
-        .pipe(gulpif('*.scss', sass({ importer: moduleImporter() })))
+        .pipe(
+          gulpif(
+            '*.scss',
+            sass({
+              includePaths: ['./node_modules'],
+              importer: moduleImporter(),
+            })
+          )
+        )
         .pipe(gulpif('*.less', less()))
         .pipe(autoprefixer())
         .pipe(gulpif(app.styles.minify, cssNano()))
