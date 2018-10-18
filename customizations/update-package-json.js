@@ -6,6 +6,19 @@
  * we overwrite it with the example provided in this plugin.
  * Else we merge changes from the newer example version or do
  * nothing if versions match (or the target's version is newer).
+ *
+ * Currently, if the target project's package.json is by
+ * Kehittamo, it will be used as a base for further merges.
+ * Version number will be updated, and devDependencies and
+ * dependencieas will be merged (ksa entries having priority).
+ *
+ * POSSIBLE TODO:
+ * Rethink package.json scripts. If we would like to merge new
+ * changes for scripts we would also need to check if /kage/
+ * needs to be replaced. Currently, package.json scripts are
+ * not replaced (after initial replace).
+ * For now, a GitHub issue is created:
+ * https://github.com/kehittamo/kehittamo-seravo-addons/issues/11
  */
 const fs = require('fs');
 
@@ -38,12 +51,13 @@ if (!fs.existsSync(packageJsonExPath)) {
   process.exit();
 }
 
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const {
   author,
   version: oldVersion,
   dependencies: oldDependencies,
   devDependencies: oldDevDependencies,
-} = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+} = packageJson;
 const packageJsonEx = JSON.parse(fs.readFileSync(packageJsonExPath, 'utf8'));
 const { version, devDependencies, dependencies } = packageJsonEx;
 const authorIsKehittamo = author.toLowerCase().includes('kehittamo');
@@ -53,13 +67,21 @@ if (authorIsKehittamo && semverCmp(version, oldVersion) < 1) {
   process.exit();
 }
 
-packageJsonEx.devDependencies = authorIsKehittamo
-  ? { ...oldDevDependencies, ...devDependencies }
-  : devDependencies;
-packageJsonEx.dependencies = authorIsKehittamo
-  ? { ...oldDependencies, ...dependencies }
-  : dependencies;
-const newPackageJson = JSON.stringify(packageJsonEx, null, 2);
+let newPackageJson;
+if (authorIsKehittamo) {
+  newPackageJson = {
+    ...packageJson,
+    version,
+    devDependencies: {
+      ...oldDevDependencies,
+      ...devDependencies,
+    },
+    dependencies: { ...oldDependencies, ...dependencies },
+  };
+} else {
+  newPackageJson = packageJsonEx;
+}
+newPackageJson = JSON.stringify(newPackageJson, null, 2);
 fs.writeFileSync(packageJsonPath, newPackageJson, 'utf8');
 
 console.log(
