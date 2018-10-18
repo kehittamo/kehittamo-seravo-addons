@@ -28,7 +28,7 @@ pipelines:
       - step:
           name: Lint SCSS and JS.
           script:
-            - yarn --ignore-engines && yarn lint
+            - yarn && yarn lint
       - step:
           name: Check that remote status is porcelain clean.
           script:
@@ -37,7 +37,7 @@ pipelines:
           name: Deploy to staging and build assets, and add tag for cache busting..
           deployment: staging
           script:
-            - ssh -p $STAGING_PORT $USER_HOST 'source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/staging; rm -rf htdocs/wp-content/plugins/kehittamo-*; composer install --no-dev; wp-restart-nginx; yarn --ignore-engines && yarn build; ./customizations/scripts-deployment-tag.sh;'
+            - ssh -p $STAGING_PORT $USER_HOST 'source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/staging; rm -rf htdocs/wp-content/plugins/kehittamo-*; composer install --no-dev; wp-restart-nginx; yarn && yarn build && ./customizations/scripts-deployment-tag.sh;'
     master:
       - step:
           name: Run PHPCS.
@@ -54,7 +54,7 @@ pipelines:
       - step:
           name: Lint SCSS and JS.
           script:
-            - yarn --ignore-engines && yarn lint
+            - yarn && yarn lint
       - step:
           name: Check that remote status is porcelain clean.
           script:
@@ -63,4 +63,4 @@ pipelines:
           name: Deploy to production, build assets, and add tag for cache busting.
           deployment: production
           script:
-            - ssh -p $PRODUCTION_PORT $USER_HOST 'source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/master; rm -rf htdocs/wp-content/plugins/kehittamo-*; composer install --no-dev; wp-restart-nginx; yarn --ignore-engines && yarn build; ./customizations/scripts-deployment-tag.sh;'
+            - ssh -p $PRODUCTION_PORT $USER_HOST 'source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/master; rm -rf htdocs/wp-content/plugins/kehittamo-*; composer install --no-dev; wp-restart-nginx; yarn && yarn build && ./customizations/scripts-deployment-tag.sh;'
