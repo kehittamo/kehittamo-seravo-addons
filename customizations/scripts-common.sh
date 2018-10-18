@@ -3,6 +3,13 @@
 # Major revision to be used for theme and library.
 MAJOR="2"
 
+# Check and update package.json as needed
+echo "==> ksa: Checking package.json...";
+node ./customizations/update-package-json.js
+if [[ $? -ne 0 ]]; then
+  exit 1
+fi
+
 # Initialize a new theme
 read -r -p "==> ksa: Would you like to initialize a new theme? (no): " response
 case "$response" in
@@ -85,7 +92,7 @@ if ! grep -Fxq "# Kehittamo Seravo Addons" .gitignore; then
   echo '==> ksa: Extending .gitignore with Kehittamo Seravo Addons'
   echo "" >> .gitignore
   echo "# Kehittamo Seravo Addons" >> .gitignore
-  echo "package.json" >> .gitignore
+  echo "package.json.example" >> .gitignore
   echo "gulpfile.js" >> .gitignore
   echo "gulp.config.js.example" >> .gitignore
   echo "vagrant-up-customizer.sh" >> .gitignore
