@@ -30,7 +30,6 @@ const sourcemaps = require('gulp-sourcemaps');
 const wpPot = require('gulp-wp-pot');
 const named = require('vinyl-named');
 const webpack = require('webpack-stream');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cache = require('gulp-cache');
 const moduleImporter = require('sass-module-importer'); // eslint-disable-line import/no-unresolved
 
@@ -192,17 +191,23 @@ gulp.task('_js', 'Build JavaScript and move to distribute', () => {
         .pipe(named())
         .pipe(
           webpack({
+            mode: process.env.NODE_ENV || 'production',
             devtool: 'source-map',
             module: {
               rules: [
                 {
                   test: /\.js$/,
-                  exclude: /(node_modules|bower_components)/,
-                  use: {
-                    loader: 'babel-loader',
-                    options: {
-                      presets: ['@babel/preset-env'],
-                    },
+                  exclude: /(node_modules)/,
+                  loader: 'babel-loader',
+                  query: {
+                    presets: [
+                      [
+                        '@babel/preset-env',
+                        {
+                          useBuiltIns: 'usage',
+                        },
+                      ],
+                    ],
                   },
                 },
               ],
@@ -213,13 +218,6 @@ gulp.task('_js', 'Build JavaScript and move to distribute', () => {
             output: {
               filename: '[name].min.js',
             },
-            plugins: app.js.minify
-              ? [
-                  new UglifyJsPlugin({
-                    sourceMap: true,
-                  }),
-                ]
-              : [],
           })
         )
         .pipe(gulp.dest(DEST))

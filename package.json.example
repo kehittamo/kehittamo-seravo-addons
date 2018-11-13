@@ -1,9 +1,10 @@
 {
   "name": "kehittamo-seravo-addons",
-  "version": "2.0.11",
+  "version": "2.0.13",
   "author": "Kehittamo",
   "description": "Gulp master file for bedrock-style WordPress projects",
   "homepage": "https://kehittamo.fi",
+  "browserslist": ">0.25%, ie 11, not op_mini all",
   "contributors": [
     {
       "name": "Niko Myllynen",
@@ -23,8 +24,8 @@
   ],
   "private": true,
   "scripts": {
-    "build": "gulp build",
-    "serve": "gulp serve",
+    "build": "NODE_ENV='production' gulp build",
+    "serve": "NODE_ENV='development' gulp serve",
     "lint": "yarn lint:scss && yarn lint:js",
     "lint:scss": "stylelint htdocs/wp-content/themes/kage/assets/styles/**/*.scss",
     "lint:js": "eslint htdocs/wp-content/themes/kage/assets/scripts",
@@ -43,9 +44,10 @@
     }
   ],
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "babel-loader": "^8.0.0",
+    "@babel/core": "^7.1.5",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.5",
+    "babel-loader": "^8.0.4",
     "browser-sync": "^2.18.8",
     "colors": "^1.1.2",
     "del": "^3.0.0",
@@ -62,7 +64,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-help": "^1.6.1",
     "gulp-if": "^2.0.0",
-    "gulp-imagemin": "^4.1.0",
+    "gulp-imagemin": "^5.0.3",
     "gulp-less": "^3.0.5",
     "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
@@ -82,10 +84,8 @@
     "sass-module-importer": "^1.4.0",
     "stylelint": "^9.3.0",
     "stylelint-prettier": "^0.2.1",
-    "uglifyjs-webpack-plugin": "^1.2.7",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.14.0",
-    "webpack-stream": "^4.0.3"
+    "webpack-stream": "^5.1.1"
   },
   "dependencies": {
     "bootstrap": "^4.1.1",
