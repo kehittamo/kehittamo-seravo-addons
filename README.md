@@ -1,27 +1,6 @@
 # Kehittamo Seravo Addons
 Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/wordpress).
 
-## Installation
-$ `composer require --dev kehittamo/kehittamo-seravo-addons:^2.0.0`
-
-$ `vagrant up`
-
-## Usage
-During $ `vagrant up`, you will have new options to choose from (see [features](#features)).
-
-Develop the theme's assets in:
-`htdocs/wp-content/themes/THEMENAME/assets`
-
-The following scripts are available for theme development:
-$ `yarn serve` BrowserSync + reload
-$ `yarn build` Builds files for production (used in pipelines)
-$ `yarn lint` Lint the project's theme (scss & js, used in pipelines)
-$ `yarn lint:scss` Lint scss
-$ `yarn lint:js` Lint js
-$ `yarn fix` Fix the project's theme (scss & js)
-$ `yarn fix:scss` Fix scss
-$ `yarn fix:js` Fix js
-
 ## Features
 * [Kage](https://github.com/kehittamo/kage) starter theme initialization (during vagrant up).
 * Master gulpfile asset pipeline with
@@ -43,7 +22,33 @@ $ `yarn fix:js` Fix js
 * Optionally adds Kehittamo Seravo Library during theme generation (during vagrant up).
 
 ## Prerequisites
+* [Vagrant 2.0.4](https://seravo.com/docs/development/how-to-install/)
 * [Yarn](https://yarnpkg.com/en/docs/install)
+* A [Seravo/wordpress](https://seravo.com/docs/development/how-to-install/) project
+
+## Installation
+$ `composer require --dev kehittamo/kehittamo-seravo-addons:^2.0.0`
+
+$ `vagrant up`
+
+## Usage
+During $ `vagrant up`, you will have new options to choose from (see [features](#features)).
+
+Develop the theme's assets in:
+`htdocs/wp-content/themes/THEMENAME/assets`
+
+The following scripts are available for theme development:
+$ `yarn serve` BrowserSync + reload
+$ `yarn build` Builds files for production (used in pipelines)
+$ `yarn lint` Lint the project's theme (scss & js, used in pipelines)
+$ `yarn lint:scss` Lint scss
+$ `yarn lint:js` Lint js
+$ `yarn fix` Fix the project's theme (scss & js)
+$ `yarn fix:scss` Fix scss
+$ `yarn fix:js` Fix js
+
+## Development
+Remember to increment the version in `package.json.example`, add a `git tag` with the same version, and `git push --tags` the new tag.
 
 ## Troubleshooting
 The assumption is your project directory and the project name in config.yml are the same. If not, edit your gulp.config.js proxy address to match your project name.
