@@ -62,6 +62,7 @@ Remember to increment the version in `package.json.example`, add a `git tag` wit
 The assumption is your project directory and the project name in config.yml are the same. If not, edit your gulp.config.js proxy address to match your project name.
 
 Currently automatic tagging is tied to the production and staging servers. The tags are used for cache busting. If tagging fails a fast fix may be to clear the tags after connecting via ssh:
+
 $ `git tag -d $(git tag | grep "production\|staging")`
 
 The kage theme and Kehittamo Seravo Library are currently version constrained with ^2.0.0.
