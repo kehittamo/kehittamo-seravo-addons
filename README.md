@@ -38,13 +38,21 @@ Develop the theme's assets in:
 `htdocs/wp-content/themes/THEMENAME/assets`
 
 The following scripts are available for theme development:
+
 $ `yarn serve` BrowserSync + reload
+
 $ `yarn build` Builds files for production (used in pipelines)
-$ `yarn lint` Lint the project's theme (scss & js, used in pipelines)
+
+$ `yarn lint` Lint the project's theme (scss & js, used in pipelines
+
 $ `yarn lint:scss` Lint scss
+
 $ `yarn lint:js` Lint js
+
 $ `yarn fix` Fix the project's theme (scss & js)
+
 $ `yarn fix:scss` Fix scss
+
 $ `yarn fix:js` Fix js
 
 ## Development
