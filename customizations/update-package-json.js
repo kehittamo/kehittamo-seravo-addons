@@ -41,11 +41,12 @@ if (!fs.existsSync(packageJsonExPath)) {
 const {
   author,
   version: oldVersion,
+  scripts: oldScripts,
   dependencies: oldDependencies,
   devDependencies: oldDevDependencies,
 } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const packageJsonEx = JSON.parse(fs.readFileSync(packageJsonExPath, 'utf8'));
-const { version, devDependencies, dependencies } = packageJsonEx;
+const { version, scripts, devDependencies, dependencies } = packageJsonEx;
 const authorIsKehittamo = author.toLowerCase().includes('kehittamo');
 
 if (authorIsKehittamo && semverCmp(version, oldVersion) < 1) {
@@ -53,6 +54,11 @@ if (authorIsKehittamo && semverCmp(version, oldVersion) < 1) {
   process.exit();
 }
 
+// We prioritize old scripts over new scripts, until we have found a solid solution
+// for keeping the desired theme name.
+packageJsonEx.scripts = authorIsKehittamo
+  ? { ...scripts, ...oldScripts }
+  : scripts;
 packageJsonEx.devDependencies = authorIsKehittamo
   ? { ...oldDevDependencies, ...devDependencies }
   : devDependencies;
