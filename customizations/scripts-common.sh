@@ -96,10 +96,9 @@ if ! grep -Fxq "# Kehittamo Seravo Addons" .gitignore; then
   echo "gulpfile.js" >> .gitignore
   echo "gulp.config.js.example" >> .gitignore
   echo "vagrant-up-customizer.sh" >> .gitignore
-  echo ".bitbucket-pipelines.yml.example" >> .gitignore
+  echo "bitbucket-pipelines.yml.example" >> .gitignore
   echo "customizations/*" >> .gitignore
   echo "!customizations/scripts-project.sh" >> .gitignore
-  echo "!customizations/scripts-deployment-tag.sh" >> .gitignore
 fi
 
 # Copy ENV if not copied yet
