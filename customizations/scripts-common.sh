@@ -19,7 +19,7 @@ case "$response" in
     [ -z "${themename}" ] && themename=$dirname
     if [ ! -d htdocs/wp-content/themes/$themename ]; then
       echo '==> ksa: Cloning kage starter theme into themes directory and removing its .git directory'
-      git clone git@github.com:kehittamo/kage.git htdocs/wp-content/themes/$themename
+      git clone https://github.com/kehittamo/kage.git htdocs/wp-content/themes/$themename
       cd htdocs/wp-content/themes/$themename
       # Try checking out theme by tag.
       TAG="$MAJOR.*"
