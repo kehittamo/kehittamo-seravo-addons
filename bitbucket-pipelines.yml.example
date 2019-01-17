@@ -19,8 +19,8 @@ pipelines:
       - step:
           name: Sentry release
           script:
-            - sentry-cli releases -o $SENTRY_ORG new -p $BITBUCKET_REPO_SLUG $BITBUCKET_BUILD_NUMBER
-            - sentry-cli releases -o $SENTRY_ORG set-commits --auto $BITBUCKET_BUILD_NUMBER
+            - sentry-cli releases -o $SENTRY_ORG new -p $BITBUCKET_REPO_SLUG $BITBUCKET_REPO_SLUG-staging@$BITBUCKET_BUILD_NUMBER
+            - sentry-cli releases -o $SENTRY_ORG set-commits --auto $BITBUCKET_REPO_SLUG-staging@$BITBUCKET_BUILD_NUMBER
       - step:
           name: PHPCS
           caches:
@@ -42,23 +42,20 @@ pipelines:
           name: Staging deploy, build, tag & finalize Sentry
           deployment: staging
           script:
-            - ssh -p $STAGING_PORT $USER_HOST 'source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/staging; rm -rf htdocs/wp-content/plugins/kehittamo-*; composer install --no-dev; wp-restart-nginx; yarn --frozen-lockfile && yarn build && ./customizations/scripts-deployment-tag.sh;'
-            - sentry-cli releases -o $SENTRY_ORG finalize $BITBUCKET_BUILD_NUMBER
-            - sentry-cli releases -o $SENTRY_ORG deploys $BITBUCKET_BUILD_NUMBER new -e "staging"
+            - ssh -p $STAGING_PORT $USER_HOST -t "export BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER; source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/staging; composer install; wp-restart-nginx; yarn --frozen-lockfile && yarn build && ./customizations/scripts-deployment-tag.sh; touch .env; grep -q \"BITBUCKET_BUILD_NUMBER\" .env && sed -i 's/.*BITBUCKET_BUILD_NUMBER.*/BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER/' .env || echo BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER >> .env; wp-restart-nginx;"
+            - sentry-cli releases -o $SENTRY_ORG finalize $BITBUCKET_REPO_SLUG-staging@$BITBUCKET_BUILD_NUMBER
+            - sentry-cli releases -o $SENTRY_ORG deploys  $BITBUCKET_REPO_SLUG-staging@$BITBUCKET_BUILD_NUMBER new -e "staging"
     master:
       - step:
           name: Sentry release
           script:
-            - sentry-cli releases -o $SENTRY_ORG new -p $BITBUCKET_REPO_SLUG $BITBUCKET_BUILD_NUMBER
-            - sentry-cli releases -o $SENTRY_ORG set-commits --auto $BITBUCKET_BUILD_NUMBER
+            - sentry-cli releases -o $SENTRY_ORG new -p $BITBUCKET_REPO_SLUG $BITBUCKET_REPO_SLUG-production@$BITBUCKET_BUILD_NUMBER
+            - sentry-cli releases -o $SENTRY_ORG set-commits --auto $BITBUCKET_REPO_SLUG-production@$BITBUCKET_BUILD_NUMBER
       - step:
           name: PHPCS
           caches:
             - composer
           script:
-            - apt-get update && apt-get install -y unzip
-            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-            - composer -V
             - rm composer.*
             - composer require dealerdirect/phpcodesniffer-composer-installer squizlabs/php_codesniffer wp-coding-standards/wpcs --no-interaction --prefer-dist --no-progress
             - composer install --prefer-dist --no-progress --no-interaction
@@ -75,6 +72,6 @@ pipelines:
           name: Prod deploy, build, tag & finalize Sentry
           deployment: production
           script:
-            - ssh -p $PRODUCTION_PORT $USER_HOST 'source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/master; rm -rf htdocs/wp-content/plugins/kehittamo-*; composer install --no-dev; wp-restart-nginx; yarn --frozen-lockfile && yarn build && ./customizations/scripts-deployment-tag.sh;'
-            - sentry-cli releases -o $SENTRY_ORG finalize $BITBUCKET_BUILD_NUMBER
-            - sentry-cli releases -o $SENTRY_ORG deploys $BITBUCKET_BUILD_NUMBER new -e "production"
+            - ssh -p $STAGING_PORT $USER_HOST -t "export BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER; source /etc/container_environment.sh; cd /data/wordpress/; git status; git fetch; git merge origin/master; composer install; wp-restart-nginx; yarn --frozen-lockfile && yarn build && ./customizations/scripts-deployment-tag.sh; touch .env; grep -q \"BITBUCKET_BUILD_NUMBER\" .env && sed -i 's/.*BITBUCKET_BUILD_NUMBER.*/BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER/' .env || echo BITBUCKET_BUILD_NUMBER=$BITBUCKET_BUILD_NUMBER >> .env; wp-restart-nginx;"
+            - sentry-cli releases -o $SENTRY_ORG finalize $BITBUCKET_REPO_SLUG-production@$BITBUCKET_BUILD_NUMBER
+            - sentry-cli releases -o $SENTRY_ORG deploys  $BITBUCKET_REPO_SLUG-production@$BITBUCKET_BUILD_NUMBER new -e "production"
