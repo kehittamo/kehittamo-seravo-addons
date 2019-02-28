@@ -95,6 +95,7 @@ if ! grep -Fxq "# Kehittamo Seravo Addons" .gitignore; then
   echo "package.json.example" >> .gitignore
   echo "gulpfile.js" >> .gitignore
   echo "gulp.config.js.example" >> .gitignore
+  echo "htdocs/htdocs" >> .gitignore
   echo "vagrant-up-customizer.sh" >> .gitignore
   echo "bitbucket-pipelines.yml.example" >> .gitignore
   echo "customizations/*" >> .gitignore
