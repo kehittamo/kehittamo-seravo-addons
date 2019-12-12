@@ -2,8 +2,6 @@
 Sugar for `vagrant up` when using [Seravo/wordpress](https://github.com/Seravo/wordpress).
 
 ## Features
-* [Kage](https://github.com/kehittamo/kage) starter theme initialization (during vagrant up).
-* A working pull production database script (during vagrant up).
 * .env initialization
 * Yarn execution & asset building
 * Support for project specific scripts
@@ -19,4 +17,4 @@ $ `composer require --dev kehittamo/kehittamo-seravo-addons:^3.0.0`
 $ `vagrant up`
 
 ## Usage
-During $ `vagrant up`, you will have new options to choose from (see [features](#features)).
+Just run $ `vagrant up`.
